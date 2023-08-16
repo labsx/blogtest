@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -23,17 +24,23 @@ Route::get('/', function(){
 
 
 
-Route::get('posts/{post}', function ($slug) {
-$path = __DIR__."/../resources/posts/{$slug}.html";
+// Route::get('posts/{post}', function ($slug) {
+// $path = __DIR__."/../resources/posts/{$slug}.html";
 
-if (! file_exists($path)){
-    return view ('/');
-}
-$post = file_get_contents($path);
+// if (! file_exists($path)){
+//     return view ('/');
+// }
+// $post = file_get_contents($path);
  
  
-    return view ('post', [
-        'post' => $post
-    ]);
-});
+//     return view ('post', [
+//         'post' => $post
+//     ]);
+// });
+
+Route::get('posts/{post}', function ($slug) {
+        return view ('post', [
+        'post' => Post::find($slug)
+        ]);
+    });
 
